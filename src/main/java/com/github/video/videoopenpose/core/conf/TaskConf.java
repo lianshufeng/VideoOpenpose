@@ -13,9 +13,12 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("task")
 public class TaskConf {
 
-
-    //任务池数量
+    //并发任务池数量
     private int taskPoolCount = 5;
+
+
+    //每次执行休眠时长
+    private long taskSleepTime = 3000;
 
 
 }

@@ -18,6 +18,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<java.version>11</java.version>
+
+		<ffmpeg.version>5.0-1.5.7</ffmpeg.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -50,7 +52,88 @@
 		</dependency>
 
 
-	</dependencies>
+        <dependency>
+            <groupId>net.bramp.ffmpeg</groupId>
+            <artifactId>ffmpeg</artifactId>
+            <version>0.7.0</version>
+        </dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.12.0</version>
+		</dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.bytedeco</groupId>-->
+<!--            <artifactId>javacv-platform</artifactId>-->
+<!--            <version>1.5.7</version>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.bytedeco</groupId>-->
+<!--                    <artifactId>*</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.bytedeco</groupId>-->
+<!--            <artifactId>ffmpeg-platform</artifactId>-->
+<!--            <version>${ffmpeg.version}</version>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.bytedeco</groupId>-->
+<!--                    <artifactId>ffmpeg</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.bytedeco</groupId>-->
+<!--            <artifactId>ffmpeg</artifactId>-->
+<!--            <version>${ffmpeg.version}</version>-->
+<!--            <classifier>windows-x86_64</classifier>-->
+<!--        </dependency>-->
+
+
+    </dependencies>
+
+
+	<repositories>
+
+		<!-- 阿里-->
+		<repository>
+			<id>nexus</id>
+			<name>nexus</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+
+
+		<repository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+
+
+	</repositories>
 
 	<build>
 		<plugins>
