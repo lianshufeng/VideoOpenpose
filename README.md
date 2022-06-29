@@ -2,7 +2,7 @@
 ````shell
 jdk11
 ffmpeg 
-openpose ( command line )
+openpose ( CommandLine )
 ````
 
 
