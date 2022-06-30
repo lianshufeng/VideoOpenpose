@@ -16,7 +16,7 @@ import java.io.File;
 public class TaskConf {
 
     //并发任务池数量
-    private int taskPoolCount = 10;
+    private int taskPoolCount = 1;
 
 
     //每次执行休眠时长

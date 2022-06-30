@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.bramp.ffmpeg.FFmpeg;
 import net.bramp.ffmpeg.FFmpegExecutor;
 import net.bramp.ffmpeg.builder.FFmpegBuilder;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -39,13 +40,19 @@ public class TaskCore {
     @SneakyThrows
     private void execute() {
         log.info("video : {}", item.getUrl());
+        File imageFile = new File(workPath.getAbsolutePath() + "/" + item.getName());
+        if (!imageFile.exists()) {
+            imageFile.mkdirs();
+        }
+        FileUtils.cleanDirectory(imageFile);
 
 
         FFmpegBuilder builder = new FFmpegBuilder()
                 .setInput(item.getUrl())     // Filename, or a FFmpegProbeResult
                 .overrideOutputFiles(true) // Override the output if it exists
-                .addOutput(String.format("%s/%s", workPath.getAbsolutePath(), item.getName() + ".jpg"))   // Filename for the destination
-                .setFrames(1)
+                .addOutput(imageFile.getAbsolutePath() + "\\%d.jpg")   // Filename for the destination
+//                .setFrames(1)
+                .addExtraArgs("-vf", "fps=1/10", "-vsync", "0")
                 .done();
         FFmpeg ffmpeg = new FFmpeg(pathHelper.getFfmpegFile().getAbsolutePath());
         FFmpegExecutor executor = new FFmpegExecutor(ffmpeg);
