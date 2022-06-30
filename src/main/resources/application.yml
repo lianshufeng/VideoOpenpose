@@ -1,7 +1,7 @@
-openpose:
-  path: D:/sdk/openpose
-ffmpeg:
-  path: D:/sdk/ffmpeg
+#openpose:
+#  path: D:/sdk/openpose/
+#ffmpeg:
+#  path: D:/sdk/ffmpeg/
 
 video:
   items:

@@ -2,22 +2,25 @@ package com.github.video.videoopenpose.core.service;
 
 import com.github.video.videoopenpose.core.conf.TaskConf;
 import com.github.video.videoopenpose.core.conf.VideoConf;
-import com.github.video.videoopenpose.core.helper.FFMPEGHelper;
+import com.github.video.videoopenpose.core.task.TaskCore;
+import lombok.Cleanup;
 import lombok.SneakyThrows;
-import net.bramp.ffmpeg.FFmpegExecutor;
-import net.bramp.ffmpeg.builder.FFmpegBuilder;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import java.net.URI;
+import java.io.File;
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Slf4j
 @Service
 public class CoreService {
 
@@ -51,10 +54,8 @@ public class CoreService {
      * @param item
      */
     @SneakyThrows
-    private void executeTask(VideoConf.Item item) {
-        FFMPEGHelper ffmpegHelper = applicationContext.getBean(FFMPEGHelper.class);
-        ffmpegHelper.setItem(item);
-        ffmpegHelper.run();
+    private void executeTask(File workPath, VideoConf.Item item) {
+        applicationContext.getBean(TaskCore.class).run(workPath, item);
     }
 
 
@@ -76,13 +77,14 @@ public class CoreService {
         private void execute() {
             final ExecutorService taskPool = Executors.newFixedThreadPool(taskConf.getTaskPoolCount());
             final CountDownLatch countDownLatch = new CountDownLatch(videoConf.getItems().length);
-
-
+            //保存视频里的图片
+            final File workImages = new File(taskConf.getWorkFile().getAbsolutePath() + "/images");
+            workImages.mkdirs();
             //执行任务
             Arrays.stream(videoConf.getItems()).forEach((item) -> {
                 taskPool.execute(() -> {
                     try {
-                        CoreService.this.executeTask(item);
+                        CoreService.this.executeTask(workImages, item);
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
@@ -90,9 +92,10 @@ public class CoreService {
                     }
                 });
             });
-
             countDownLatch.await();
             taskPool.shutdownNow();
+
+
         }
     }
 
