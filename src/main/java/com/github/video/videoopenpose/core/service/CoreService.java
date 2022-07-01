@@ -8,6 +8,8 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,7 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 @Service
-public class CoreService {
+public class CoreService implements ApplicationRunner {
 
     @Autowired
     private VideoConf videoConf;
@@ -34,8 +36,8 @@ public class CoreService {
     private ApplicationContext applicationContext;
 
 
-    @Autowired
-    private void init(ApplicationContext applicationContext) {
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
         nextTask();
     }
 
@@ -48,43 +50,39 @@ public class CoreService {
     }
 
 
-    /**
-     * 执行单个任务
-     *
-     * @param item
-     */
-    @SneakyThrows
-    private void executeTask(File workPath, VideoConf.Item item) {
-        applicationContext.getBean(TaskCore.class).run(workPath, item);
-    }
-
-
     private class VideoTask extends TimerTask {
 
 
         @Override
         public void run() {
-            try {
-                execute();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            CoreService.this.nextTask();
+
+            //启动线程池持续获取视频流图片
+            this.executeVideoCapture();
+
+            //图片
+            this.captureToWorkFile();
+        }
+
+
+        private void captureToWorkFile() {
+            final File inputFile = new File(taskConf.getWorkFile().getAbsolutePath() + "/input");
+            inputFile.mkdirs();
+            new Thread(new CaptureToWorkThread()).start();
         }
 
 
         @SneakyThrows
-        private void execute() {
-            final ExecutorService taskPool = Executors.newFixedThreadPool(taskConf.getTaskPoolCount());
+        private void executeVideoCapture() {
+            final ExecutorService taskPool = Executors.newFixedThreadPool(videoConf.getItems().length);
             final CountDownLatch countDownLatch = new CountDownLatch(videoConf.getItems().length);
             //保存视频里的图片
-            final File workImages = new File(taskConf.getWorkFile().getAbsolutePath() + "/images");
+            final File workImages = new File(taskConf.getWorkFile().getAbsolutePath() + "/capture");
             workImages.mkdirs();
             //执行任务
             Arrays.stream(videoConf.getItems()).forEach((item) -> {
                 taskPool.execute(() -> {
                     try {
-                        CoreService.this.executeTask(workImages, item);
+                        applicationContext.getBean(TaskCore.class).run(workImages, item);
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
@@ -94,7 +92,14 @@ public class CoreService {
             });
             countDownLatch.await();
             taskPool.shutdownNow();
+        }
 
+    }
+
+    public class CaptureToWorkThread implements Runnable {
+
+        @Override
+        public void run() {
 
         }
     }

@@ -16,11 +16,14 @@ import java.io.File;
 public class TaskConf {
 
     //并发任务池数量
-    private int taskPoolCount = 1;
+//    private int taskPoolCount = 1;
 
 
     //每次执行休眠时长
     private long taskSleepTime = 3000;
+
+    //采集时间
+    private int captureTime = 5;
 
 
     //工作目录 c:/workSpace
