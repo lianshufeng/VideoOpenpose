@@ -1,26 +1,26 @@
-#openpose:
-#  path: D:/sdk/openpose/
-#ffmpeg:
-#  path: D:/sdk/ffmpeg/
+openpose:
+  path: D:/sdk/openpose/
+ffmpeg:
+  path: D:/sdk/ffmpeg/
 
 video:
   items:
     - {"name": "七星岗站0","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/0/1/20220610T023510/a969630330a1d150e3b775b6a36013c1.m3u8?proto=https"}
-#    - {"name": "七星岗站1","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/1/1/20220610T023834/3bc58cb64f434f97889d44da8b3277e4.m3u8?proto=https"}
-#    - {"name": "七星岗站10","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/10/1/20220610T024035/a26b3344ad35eacd6d40dd5c0af0ff44.m3u8?proto=https"}
-#    - {"name": "七星岗站11","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/11/1/20220610T024031/5f747d9be8946f2db16bad85b758b37c.m3u8?proto=https"}
-#    - {"name": "七星岗站12","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/12/1/20220610T000944/db2511e3543f1f8aa63382f584037b13.m3u8?proto=https"}
-#    - {"name": "七星岗站13","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/13/1/20220610T024053/a55f24ef93110f76775c2a644eaf7ffd.m3u8?proto=https"}
-#    - {"name": "七星岗站14","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/14/1/20220610T024045/71d87872e19a54ec68b7d0b35bcb1322.m3u8?proto=https"}
-#    - {"name": "七星岗站15","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/15/1/20220610T024059/1a983293ecf439828a873bd4a7502f28.m3u8?proto=https"}
-#    - {"name": "七星岗站16","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/16/1/20220610T024104/3d6a17cec2830c222e656ad9790b5f34.m3u8?proto=https"}
-#    - {"name": "七星岗站17","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/17/1/20220610T024116/c018821a11e8eb7e3a7f239903107015.m3u8?proto=https"}
-#    - {"name": "七星岗站18","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/18/1/20220610T024613/ef10b11b84192b54b9592794ee9e9f8e.m3u8?proto=https"}
-#    - {"name": "七星岗站2","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/2/1/20220610T023907/96a12feccfb6bcfe01dc79f2576bf5a5.m3u8?proto=https"}
-#    - {"name": "七星岗站3","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/3/1/20220610T023916/4f23b88040afb0b914577e337aca9eaf.m3u8?proto=https"}
-#    - {"name": "七星岗站4","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/4/1/20220610T000856/5784712ee06f8beab89a7613501b0a1b.m3u8?proto=https"}
-#    - {"name": "七星岗站5","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/5/1/20220610T023951/7ceeae842c1c0e08919ea1739eeabea1.m3u8?proto=https"}
-#    - {"name": "七星岗站6","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/6/1/20220610T023941/62e5cd86b63f756887fc513764536530.m3u8?proto=https"}
-#    - {"name": "七星岗站7","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/7/1/20220610T023956/5393c83cb9a67e435c73bc80071e9783.m3u8?proto=https"}
-#    - {"name": "七星岗站8","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/8/1/20220610T024010/1f7a8757cf475763fb186e400140bfda.m3u8?proto=https"}
-#    - {"name": "七星岗站9","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/9/1/20220610T060827/70e7016821af69c076c14a699b5b2fdc.m3u8?proto=https"}
+    - {"name": "七星岗站1","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/1/1/20220610T023834/3bc58cb64f434f97889d44da8b3277e4.m3u8?proto=https"}
+    - {"name": "七星岗站10","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/10/1/20220610T024035/a26b3344ad35eacd6d40dd5c0af0ff44.m3u8?proto=https"}
+    - {"name": "七星岗站11","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/11/1/20220610T024031/5f747d9be8946f2db16bad85b758b37c.m3u8?proto=https"}
+    - {"name": "七星岗站12","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/12/1/20220610T000944/db2511e3543f1f8aa63382f584037b13.m3u8?proto=https"}
+    - {"name": "七星岗站13","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/13/1/20220610T024053/a55f24ef93110f76775c2a644eaf7ffd.m3u8?proto=https"}
+    - {"name": "七星岗站14","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/14/1/20220610T024045/71d87872e19a54ec68b7d0b35bcb1322.m3u8?proto=https"}
+    - {"name": "七星岗站15","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/15/1/20220610T024059/1a983293ecf439828a873bd4a7502f28.m3u8?proto=https"}
+    - {"name": "七星岗站16","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/16/1/20220610T024104/3d6a17cec2830c222e656ad9790b5f34.m3u8?proto=https"}
+    - {"name": "七星岗站17","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/17/1/20220610T024116/c018821a11e8eb7e3a7f239903107015.m3u8?proto=https"}
+    - {"name": "七星岗站18","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/18/1/20220610T024613/ef10b11b84192b54b9592794ee9e9f8e.m3u8?proto=https"}
+    - {"name": "七星岗站2","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/2/1/20220610T023907/96a12feccfb6bcfe01dc79f2576bf5a5.m3u8?proto=https"}
+    - {"name": "七星岗站3","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/3/1/20220610T023916/4f23b88040afb0b914577e337aca9eaf.m3u8?proto=https"}
+    - {"name": "七星岗站4","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/4/1/20220610T000856/5784712ee06f8beab89a7613501b0a1b.m3u8?proto=https"}
+    - {"name": "七星岗站5","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/5/1/20220610T023951/7ceeae842c1c0e08919ea1739eeabea1.m3u8?proto=https"}
+    - {"name": "七星岗站6","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/6/1/20220610T023941/62e5cd86b63f756887fc513764536530.m3u8?proto=https"}
+    - {"name": "七星岗站7","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/7/1/20220610T023956/5393c83cb9a67e435c73bc80071e9783.m3u8?proto=https"}
+    - {"name": "七星岗站8","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/8/1/20220610T024010/1f7a8757cf475763fb186e400140bfda.m3u8?proto=https"}
+    - {"name": "七星岗站9","url": "https://cmgw-vpc.lechange.com:8890/LCO/7K0058EPAZ449C2/9/1/20220610T060827/70e7016821af69c076c14a699b5b2fdc.m3u8?proto=https"}

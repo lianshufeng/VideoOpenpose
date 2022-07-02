@@ -3,10 +3,9 @@ package com.github.video.videoopenpose.core.service;
 import com.github.video.videoopenpose.core.conf.TaskConf;
 import com.github.video.videoopenpose.core.conf.VideoConf;
 import com.github.video.videoopenpose.core.task.TaskCore;
-import lombok.Cleanup;
+import com.github.video.videoopenpose.core.task.UpdateCaptureAndOpenpose;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -17,7 +16,6 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -36,8 +34,43 @@ public class CoreService implements ApplicationRunner {
     private ApplicationContext applicationContext;
 
 
+    private File workCapture;
+
+    private File workOpenpose;
+
+
+    private File workOpenposeInput;
+    private File workOpenposeOutput;
+
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
+
+        //保存视频里的图片
+        workCapture = new File(taskConf.getWorkFile().getAbsolutePath() + "/capture");
+        if (!workCapture.exists()) {
+            workCapture.mkdirs();
+        }
+
+
+        //工作空间
+        workOpenpose = new File(taskConf.getWorkFile().getAbsolutePath() + "/openpose");
+        if (!workOpenpose.exists()) {
+            workOpenpose.mkdirs();
+        }
+
+        //openpose输入路径
+        workOpenposeInput = new File(workOpenpose.getAbsolutePath() + "/input");
+        if (!workOpenposeInput.exists()) {
+            workOpenposeInput.mkdirs();
+        }
+
+        //openpose输出路径
+        workOpenposeOutput = new File(workOpenpose.getAbsolutePath() + "/output");
+        if (!workOpenposeOutput.exists()) {
+            workOpenposeOutput.mkdirs();
+        }
+
         nextTask();
     }
 
@@ -56,18 +89,26 @@ public class CoreService implements ApplicationRunner {
         @Override
         public void run() {
 
+
+            //截图到openpose
+            this.captureToOpenpose();
+
             //启动线程池持续获取视频流图片
             this.executeVideoCapture();
 
-            //图片
-            this.captureToWorkFile();
+
+
         }
 
 
-        private void captureToWorkFile() {
-            final File inputFile = new File(taskConf.getWorkFile().getAbsolutePath() + "/input");
-            inputFile.mkdirs();
-            new Thread(new CaptureToWorkThread()).start();
+        private void captureToOpenpose() {
+            UpdateCaptureAndOpenpose updateCaptureAndOpenpose = applicationContext.getBean(UpdateCaptureAndOpenpose.class);
+            updateCaptureAndOpenpose.setWorkCapture(workCapture);
+            updateCaptureAndOpenpose.setWorkOpenposeInput(workOpenposeInput);
+            updateCaptureAndOpenpose.setWorkOpenposeOutput(workOpenposeOutput);
+
+            //启动同步openpose的线程
+            new Timer().schedule(updateCaptureAndOpenpose, 1000, 1000);
         }
 
 
@@ -75,14 +116,12 @@ public class CoreService implements ApplicationRunner {
         private void executeVideoCapture() {
             final ExecutorService taskPool = Executors.newFixedThreadPool(videoConf.getItems().length);
             final CountDownLatch countDownLatch = new CountDownLatch(videoConf.getItems().length);
-            //保存视频里的图片
-            final File workImages = new File(taskConf.getWorkFile().getAbsolutePath() + "/capture");
-            workImages.mkdirs();
+
             //执行任务
             Arrays.stream(videoConf.getItems()).forEach((item) -> {
                 taskPool.execute(() -> {
                     try {
-                        applicationContext.getBean(TaskCore.class).run(workImages, item);
+                        applicationContext.getBean(TaskCore.class).run(workCapture, workOpenposeInput, item);
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {

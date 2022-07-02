@@ -20,10 +20,10 @@ public class TaskConf {
 
 
     //每次执行休眠时长
-    private long taskSleepTime = 3000;
+    private long taskSleepTime = 2000;
 
     //采集时间
-    private int captureTime = 5;
+    private int captureTime = 2;
 
 
     //工作目录 c:/workSpace

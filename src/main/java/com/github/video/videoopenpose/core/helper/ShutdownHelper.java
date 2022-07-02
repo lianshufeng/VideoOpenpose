@@ -17,7 +17,7 @@ public class ShutdownHelper {
         final long pid = ProcessHandle.current().pid();
         //关闭子进程
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            log.info("close {} - {} ", "ffmpeg", "openposeDemo");
+            log.info("close {} - {} ", "ffmpeg", "openpose");
             try {
                 Runtime.getRuntime().exec("cmd /c taskkill /f /t /pid " + String.valueOf(pid));
             } catch (IOException e) {
